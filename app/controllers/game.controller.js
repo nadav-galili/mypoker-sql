@@ -1,5 +1,28 @@
 const Game = require("../models/game.model.js");
 
+exports.create = (req, res) => {
+  console.log(req.body);
+  if (!req.body) {
+    res.status(400).send({
+      message: "content cant be empty",
+    });
+  }
+
+  const game = new Game({
+    id: req.body.id,
+    cashing: req.body.cashing,
+  });
+
+  Game.create(game, (err, data) => {
+    if (err)
+      res.status(500).send({
+        game,
+        message: err.message || "some error occurd",
+      });
+    else res.send(data);
+  });
+};
+
 exports.findAll = (req, res) => {
   Game.getAll((err, data) => {
     if (err)

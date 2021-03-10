@@ -1,9 +1,24 @@
 const sql = require("./db.js");
 
-const Game = function () {
+const Game = function (game) {
+  // this.id = game.id;
   this.id = game.id;
-  this.date = game.date;
-  this.profit = game.profit;
+  this.cashing = game.cashing;
+  // this.game_rank = game.game_rank;
+};
+
+Game.create = (newGame, result) => {
+  console.log(newGame, result);
+  sql.query("INSERT INTO games SET ?", newGame, (err, res) => {
+    if (err) {
+      console.log("error:", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("created game:", { id: res.insertId, ...newGame });
+    result(null, { id: res.insertId, ...newGame });
+  });
 };
 
 Game.findById = (gameId, result) => {

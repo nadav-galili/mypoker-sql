@@ -2,7 +2,7 @@ const sql = require("./db.js");
 
 const Player = function () {
   this.name = player.name;
-  this.cash = player.cash;
+  this.cashing = player.cashing;
   this.img = player.image;
 };
 

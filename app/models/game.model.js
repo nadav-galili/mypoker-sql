@@ -1,10 +1,11 @@
 const sql = require("./db.js");
 
 const Game = function (game) {
-  // this.id = game.id;
-  this.id = game.id;
+  this.player_id = game.id;
   this.cashing = game.cashing;
-  // this.game_rank = game.game_rank;
+  this.num_of_cashing = game.num_of_cashing;
+  this.profit = game.profit;
+  this.is_app = game.is_app;
 };
 
 Game.create = (newGame, result) => {
@@ -17,6 +18,7 @@ Game.create = (newGame, result) => {
     }
 
     console.log("created game:", { id: res.insertId, ...newGame });
+    console.log(JSON.stringify(res));
     result(null, { id: res.insertId, ...newGame });
   });
 };

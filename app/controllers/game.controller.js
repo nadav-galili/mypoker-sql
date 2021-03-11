@@ -11,6 +11,9 @@ exports.create = (req, res) => {
   const game = new Game({
     id: req.body.id,
     cashing: req.body.cashing,
+    num_of_cashing: req.body.num_of_cashing,
+    profit: req.body.profit,
+    is_app: req.body.is_app,
   });
 
   Game.create(game, (err, data) => {

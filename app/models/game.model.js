@@ -2,6 +2,8 @@ const sql = require("./db.js");
 
 const Game = function (game) {
   this.player_id = game.id;
+  this.name = game.name;
+  this.image = game.image;
   this.cashing = game.cashing;
   this.num_of_cashing = game.num_of_cashing;
   this.profit = game.profit;
@@ -43,16 +45,22 @@ Game.findById = (gameId, result) => {
 };
 
 Game.getAll = (result) => {
-  sql.query("SELECT * FROM games", (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
+  sql.query(
+    `SELECT RANK() OVER (ORDER BY g.profit DESC) AS rank,
+   p.name,p.image, g.profit,g.num_of_cashing AS num_of_pritot
+    FROM players p JOIN games g on p.id=g.player_id 
+    where g.date=(select max(date) from games)`,
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
 
-    console.log("games: ", res);
-    result(null, res);
-  });
+      console.log("games: ", res);
+      result(null, res);
+    }
+  );
 };
 
 module.exports = Game;

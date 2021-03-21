@@ -11,6 +11,7 @@ app.get("/", (req, res) => {
 
 require("./app/routes/player.routes.js")(app);
 require("./app/routes/game.routes.js")(app);
+require("./app/routes/table.routes.js")(app);
 
 app.listen(3900, () => {
   console.log("Server is running on port 3900.");

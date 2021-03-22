@@ -54,15 +54,19 @@ Table.getAll = (result) => {
        ROUND( SUM(if(g.profit>0, 1, 0))*100/COUNT(p.id),2) As success_percentage ,
        ROUND(AVG(g.num_of_cashing),2) AS avg_num_of_pritot ,
         MAX(g.date) as last_game FROM players p 
-        JOIN games g on p.id=g.player_id GROUP by p.id`,
+        JOIN games g on p.id=g.player_id GROUP by p.id
+        ORDER BY rank ;SELECT * FROM games`,
+
     (err, res) => {
       if (err) {
         console.log("error: ", err);
+
         result(null, err);
         return;
       }
 
       console.log("tables: ", res);
+      console.log(result[1]);
       result(null, res);
     }
   );

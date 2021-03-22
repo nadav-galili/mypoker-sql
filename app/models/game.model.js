@@ -2,7 +2,7 @@ const sql = require("./db.js");
 
 const Game = function (game) {
   this.player_id = game.id;
-  this.date = game.date;
+  // this.date = game.date;
   this.cashing = game.cashing;
   this.num_of_cashing = game.num_of_cashing;
   this.profit = game.profit;
@@ -49,7 +49,8 @@ Game.getAll = (result) => {
    p.name,p.image, g.profit,g.num_of_cashing AS num_of_pritot,
    g.date
     FROM players p JOIN games g on p.id=g.player_id 
-    where g.date=(select max(date) from games)`,
+    where g.date=(select max(date) from games)
+    ORDER BY rank`,
     (err, res) => {
       if (err) {
         console.log("error: ", err);

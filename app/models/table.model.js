@@ -3,6 +3,7 @@ const sql = require("./db.js");
 const Table = function (table) {
   this.rank = table.rank;
   this.name = table.name;
+  this.date = table.date;
   this.profit = table.profit;
   this.avgProfit = table.avg_profit;
   this.numOfGames = table.num_of_games;
@@ -48,15 +49,15 @@ Table.findById = (gameId, result) => {
 
 Table.getAll = (result) => {
   sql.query(
-    `SELECT RANK() OVER (ORDER BY g.profit DESC) AS rank , p.name, g.profit,
+    ` SELECT g.date,p.name,g.cashing,g.profit FROM games g LEFT JOIN players p on g.player_id=p.id
+     ; SELECT RANK() OVER (ORDER BY g.profit DESC) AS rank , p.name, g.profit,
      round(AVG(g.profit),2) as avg_profit ,COUNT(p.id) AS num_of_games ,
       SUM(if(g.profit>0, 1, 0)) AS is_plus,
        ROUND( SUM(if(g.profit>0, 1, 0))*100/COUNT(p.id),2) As success_percentage ,
        ROUND(AVG(g.num_of_cashing),2) AS avg_num_of_pritot ,
         MAX(g.date) as last_game FROM players p 
         JOIN games g on p.id=g.player_id GROUP by p.id
-        ORDER BY rank ;SELECT * FROM games`,
-
+        ORDER BY rank`,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -66,7 +67,7 @@ Table.getAll = (result) => {
       }
 
       console.log("tables: ", res);
-      console.log(result[1]);
+      console.log(result[0]);
       result(null, res);
     }
   );

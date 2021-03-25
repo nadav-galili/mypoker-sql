@@ -49,7 +49,7 @@ Table.findById = (gameId, result) => {
 
 Table.getAll = (result) => {
   sql.query(
-    ` SELECT g.date,p.name,g.cashing,g.profit FROM games g LEFT JOIN players p on g.player_id=p.id
+    ` SELECT g.date,p.name,g.cashing,g.profit FROM games g LEFT JOIN players p on g.player_id=p.id ORDER BY g.date DESC
      ; SELECT RANK() OVER (ORDER BY g.profit DESC) AS rank , p.name, g.profit,
      round(AVG(g.profit),2) as avg_profit ,COUNT(p.id) AS num_of_games ,
       SUM(if(g.profit>0, 1, 0)) AS is_plus,
@@ -67,7 +67,7 @@ Table.getAll = (result) => {
       }
 
       console.log("tables: ", res);
-      console.log(result[0]);
+
       result(null, res);
     }
   );

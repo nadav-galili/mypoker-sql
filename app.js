@@ -13,6 +13,7 @@ require("./app/routes/player.routes.js")(app);
 require("./app/routes/game.routes.js")(app);
 require("./app/routes/table.routes.js")(app);
 
-app.listen(3900, () => {
-  console.log("Server is running on port 3900.");
+const PORT = process.env.PORT || 3900;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

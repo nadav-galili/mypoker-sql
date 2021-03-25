@@ -49,7 +49,7 @@ Game.getAll = (result) => {
    p.name,p.image, g.profit,g.num_of_cashing AS num_of_pritot,
    g.date
     FROM players p JOIN games g on p.id=g.player_id 
-    where g.date=(select max(date) from games)
+    where DATE(g.date)=CURDATE()
     ORDER BY rank`,
     (err, res) => {
       if (err) {

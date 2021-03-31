@@ -45,12 +45,11 @@ Game.findById = (gameId, result) => {
 
 Game.getAll = (result) => {
   sql.query(
-    `SELECT RANK() OVER (ORDER BY g.profit DESC) AS rank,
-   p.name,p.image, g.profit,g.num_of_cashing AS num_of_pritot,
+    `SELECT p.name,p.image, g.profit,g.num_of_cashing AS num_of_pritot,
    g.date
     FROM players p JOIN games g on p.id=g.player_id 
-    where DATE(g.date)=CURDATE()
-    ORDER BY rank`,
+    where DATE(g.date)=CURRENT_DATE()
+    ORDER BY g.profit DESC`,
     (err, res) => {
       if (err) {
         console.log("error: ", err);

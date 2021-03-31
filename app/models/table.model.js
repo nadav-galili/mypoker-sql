@@ -50,14 +50,17 @@ Table.findById = (gameId, result) => {
 Table.getAll = (result) => {
   sql.query(
     ` SELECT g.date,p.name,g.cashing,g.profit FROM games g LEFT JOIN players p on g.player_id=p.id ORDER BY g.date DESC
-     ; SELECT RANK() OVER (ORDER BY g.profit DESC) AS rank , p.name, g.profit,
-     round(AVG(g.profit),2) as avg_profit ,COUNT(p.id) AS num_of_games ,
-      SUM(if(g.profit>0, 1, 0)) AS is_plus,
-       ROUND( SUM(if(g.profit>0, 1, 0))*100/COUNT(p.id),2) As success_percentage ,
-       ROUND(AVG(g.num_of_cashing),2) AS avg_num_of_pritot ,
-        MAX(g.date) as last_game FROM players p 
-        JOIN games g on p.id=g.player_id GROUP by p.id
-        ORDER BY rank`,
+     ; SELECT p.name,SUM( g.profit) as profit ,
+     COUNT(p.id) AS num_of_games , 
+     SUM(if(g.profit>0, 1, 0)) AS is_plus,
+     ROUND( SUM(if(g.profit>0, 1, 0))*100/COUNT(p.id),2) As success_percentage ,
+     ROUND(AVG(g.num_of_cashing),2) AS avg_num_of_pritot ,
+     MAX(g.date) as last_game 
+     FROM players p  right JOIN games g on p.id=g.player_id
+
+     GROUP by p.id
+     order by profit DESC
+    `,
     (err, res) => {
       if (err) {
         console.log("error: ", err);

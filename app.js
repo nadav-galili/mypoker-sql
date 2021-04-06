@@ -5,6 +5,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// app.get("/*", (req, res) => {
+//   res.sendFile(__dirname + "/index.html"),
+//     function (err) {
+//       if (err) res.status(500).send(err);
+//     };
+// });
+
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Bibs application." });
 });

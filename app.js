@@ -1,16 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 
+// let corsOptions = {
+//   origin: "https://poker-at-vasili.com",
+// };
 const app = express();
 app.use(cors());
+// app.use(cors(corsOptions));
 app.use(express.json());
-
-// app.get("/*", (req, res) => {
-//   res.sendFile(__dirname + "/index.html"),
-//     function (err) {
-//       if (err) res.status(500).send(err);
-//     };
-// });
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Bibs application." });

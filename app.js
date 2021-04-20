@@ -16,6 +16,7 @@ app.get("/", (req, res) => {
 require("./app/routes/player.routes.js")(app);
 require("./app/routes/game.routes.js")(app);
 require("./app/routes/table.routes.js")(app);
+require("./app/routes/stats.routes.js")(app);
 
 const PORT = process.env.PORT || 3900;
 app.listen(PORT, () => {

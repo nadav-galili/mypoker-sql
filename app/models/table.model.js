@@ -49,7 +49,7 @@ Table.findById = (gameId, result) => {
 
 Table.getAll = (result) => {
   sql.query(
-    ` SELECT g.date,p.name,g.cashing,g.profit FROM games g LEFT JOIN players p on g.player_id=p.id ORDER BY g.date DESC
+    ` SELECT g.date,p.name,g.cashing,g.profit FROM games g LEFT JOIN players p on g.player_id=p.id ORDER BY g.date DESC LIMIT 20
      ;SELECT p.name,SUM( g.profit) as profit ,
      COUNT(p.id) AS num_of_games , 
      SUM(if(g.profit>0, 1, 0)) AS is_plus,

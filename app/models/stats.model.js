@@ -52,7 +52,7 @@ Stats.getAll = (result) => {
      order by avg_num_of_pritot
      LIMIT 3;
      SELECT SUM(cashing) as sum FROM games;
-     SELECT p.name,g.profit FROM players p right JOIN
+     SELECT p.name,g.profit,g.date FROM players p right JOIN
       games g on p.id=g.player_id where g.is_app<>9
        order by profit DESC LIMIT 10
      `,
